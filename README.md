@@ -2,7 +2,7 @@
 **microbit-shell** is a shell that runs inside a micro:bit. It was made in the Makecode editor using Javascript.
 
 ## How to use this project
-**Currently this project _only supports PuTTY_**.
+**This project is _only tested on PuTTY_. Use of other serial clients may give different results, in the case of that make an "Issue"**.
   - Stuff you need
     - A BBC micro:bit
     - A USB cable
