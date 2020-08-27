@@ -4,7 +4,8 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
     if (command == "help") {
             serial.writeString("" + "\r\nList of commands:" + 
             "\r\nhelp - shows a list of commands" + 
-            "\r\ninfo - shows info about this device")
+            "\r\ninfo - shows info about this device" + 
+            "\r\nabout - shows info about he flashed program on this device")
         } else if (command == "info") {
             serial.writeString("" + "\r\nInfo about this device:" + 
             "\r\nDevice Name: " + control.deviceName() + 
@@ -12,7 +13,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\nTime Elapsed Since Boot: " + control.millis() / 1000 + " s")
         } else if (command == "about") {
             serial.writeString("" + ("\r\nThis is a shell, made using the Makecode editor with Javascript." + 
-            "\r\nAnd the thing is it runs on a micro:bit"))
+            "\r\nAnd the thing is it runs on a micro:bit."))
         } else if (command == "reset") {
             serial.writeString("" + ("\r\nTHE MICRO:BIT WILL RESET DON'T TOUCH ANYTHING\r\n"))
             control.reset()
