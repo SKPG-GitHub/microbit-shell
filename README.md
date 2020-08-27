@@ -11,7 +11,7 @@
 1. Download PuTTY from their [official website](https://www.putty.org/).
 2. Install PuTTY.
 3. Open the Makecode [website](https://makecode.microbit.org/).
-4. Import this project to the Makecode editor (more info below). 
+4. Import this project to the Makecode editor (more info below), or, alternatively you can download the .hex file from our Releases.
 5. When you are in the project press the download button.
 6. Once you have the hex file, plug in your BBC micro:bit into your computer.
 7. Open the MICROBIT drive in File Explorer.
