@@ -1,5 +1,5 @@
-
-> Open this page at [https://skpg-github.github.io/microbit-shell/](https://skpg-github.github.io/microbit-shell/)
+## What is this?
+**microbit-shell** is a shell that runs inside a micro:bit. It was made in the makecode editor using Javascript.
 
 ## Use as Extension
 
