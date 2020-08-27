@@ -12,9 +12,9 @@
 2. Install PuTYY (64-Bit).
 3. Open the Makecode [website](https://makecode.microbit.org/).
 4. Import this project to the Makecode editor (more info below). 
-5. ![](readmeFiles/download.png)When you are in the project press the download button.
+5. When you are in the project press the download button.
 6. Once you have the hex file, plug in your BBC micro:bit into your computer.
-7. ![](readmeFiles/drive.png)Open the MICROBIT drive in File Explorer.
+7. Open the MICROBIT drive in File Explorer.
 8. Drag the hex file you downloaded to the drive (after that your micro:bit's small yellow LED will start flashing, wait until it stops and wait until it remounts itself too).
 9. Open PuTTY (64-Bit) 
 
