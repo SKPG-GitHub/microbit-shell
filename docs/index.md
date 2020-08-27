@@ -1,3 +1,4 @@
+![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 # What is this?
 **microbit-shell** is a shell that runs inside a micro:bit. It was made in the Makecode editor using Javascript.
 
@@ -24,7 +25,7 @@
 
 #### DONE, Enjoy the project.
 
-## How to import this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
+## How to import this project 
 
 To edit this repository in MakeCode.
 **There are two ways you can import this project**
