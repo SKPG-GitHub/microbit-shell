@@ -1,7 +1,24 @@
-## What is this?
-**microbit-shell** is a shell that runs inside a micro:bit. It was made in the makecode editor using Javascript.
+# What is this?
+**microbit-shell** is a shell that runs inside a micro:bit. It was made in the Makecode editor using Javascript.
 
-## Use as Extension
+## How to use this project
+**Currently this project _only supports PuTTY_**.
+  - Stuff you need
+    - A BBC micro:bit
+    - A USB cable
+    - A simple PC or laptop with internet
+    
+1. Download PuTTY (64-Bit) from their [official website](https://www.putty.org/).
+2. Install PuTYY (64-Bit).
+3. Open the Makecode [website](https://makecode.microbit.org/).
+4. Import this project to the Makecode editor (more info [here](https://github.com/SKPG-GitHub/microbit-shell#edit-this-project-)) ![video](https://imgur.com/a/LhKMPDt). 
+5. When you are in the project press the download button. ![download.img](https://imgur.com/zkJwSFh)
+6. Once you have the hex file, plug in your BBC micro:bit into your computer.
+7. Open the MICROBIT drive in File Explorer. ![drive](https://imgur.com/JzEoMYE)
+8. Drag the hex file you downloaded to the drive (after that your micro:bit's small yellow LED will start flashing, wait until it stops and wait until it remounts itself too).
+9. Open PuTTY (64-Bit) 
+
+## How to use as an Extension
 
 This repository can be added as an **extension** in MakeCode.
 
@@ -10,7 +27,7 @@ This repository can be added as an **extension** in MakeCode.
 * click on **Extensions** under the gearwheel menu
 * search for **https://github.com/skpg-github/microbit-shell** and import
 
-## Edit this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
+## How to edit this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 
 To edit this repository in MakeCode.
 
