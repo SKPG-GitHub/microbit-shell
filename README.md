@@ -24,7 +24,7 @@
 
 #### DONE, Enjoy the project.
 
-## How to import/edit this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
+## How to import this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 
 To edit this repository in MakeCode.
 
