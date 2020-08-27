@@ -27,10 +27,17 @@
 ## How to import this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 
 To edit this repository in MakeCode.
-
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/skpg-github/microbit-shell** and click import
+ - **There are two ways you can import this project**
+   - Using import from URL
+     - open [https://makecode.microbit.org/](https://makecode.microbit.org/)
+     - click on **Import** then click on **Import URL**
+     - paste **https://github.com/skpg-github/microbit-shell** and click import
+   - Using your GitHub account
+     - fork this repository
+     - open [https://makecode.microbit.org/](https://makecode.microbit.org/)
+     - click on **Import** then click on **Your GitHub repo**
+     - it may ask you to log in to your GitHub account
+     - select this repo from the list
 
 ## Blocks preview
 
