@@ -6,17 +6,23 @@
   - Stuff you need
     - A BBC micro:bit
     - A USB cable
-    - A simple PC or laptop with internet
+    - A simple PC or laptop with Internet
     
-1. Download PuTTY (64-Bit) from their [official website](https://www.putty.org/).
-2. Install PuTYY (64-Bit).
+1. Download PuTTY from their [official website](https://www.putty.org/).
+2. Install PuTTY.
 3. Open the Makecode [website](https://makecode.microbit.org/).
 4. Import this project to the Makecode editor (more info below). 
 5. When you are in the project press the download button.
 6. Once you have the hex file, plug in your BBC micro:bit into your computer.
 7. Open the MICROBIT drive in File Explorer.
 8. Drag the hex file you downloaded to the drive (after that your micro:bit's small yellow LED will start flashing, wait until it stops and wait until it remounts itself too).
-9. Open PuTTY (64-Bit) 
+9. Open PuTTY.
+10. Select serial in the connection type.
+11. Open device manager and find the micro:bit's COM port.
+12. In PuTTY type in the COM port in the serial line.
+13. And set the speed to 115200.
+
+### DONE, Enjoy the project
 
 ## How to use as an Extension
 
