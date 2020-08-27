@@ -25,7 +25,9 @@
 
 #### DONE, Enjoy the project.
 
-## How to import this project 
+Press ';' to run the command. (Enter doesn't work)
+
+## How to import this project
 
 To edit this repository in MakeCode.
 **There are two ways you can import this project**
