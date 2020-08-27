@@ -25,6 +25,8 @@ It was made in the Makecode editor using Javascript.
 
 #### DONE, Enjoy the project.
 
+Press ';' to run the command. (Enter doesn't work)
+
 ## How to import this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 
 To edit this repository in MakeCode.
