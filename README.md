@@ -22,7 +22,7 @@
 12. In PuTTY type in the COM port in the serial line.
 13. And set the speed to 115200.
 
-#### DONE, Enjoy the project
+#### DONE, Enjoy the project.
 
 ## How to edit this project ![Build status badge](https://github.com/skpg-github/microbit-shell/workflows/MakeCode/badge.svg)
 
