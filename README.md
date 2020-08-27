@@ -39,7 +39,7 @@ To edit this repository in MakeCode.
       - it may ask you to log in to your GitHub account
       - select this repo from the list
 
-## Blocks preview
+## Block preview
 
 This image shows the blocks code from the last commit in master.
 This image may take a few minutes to refresh.
