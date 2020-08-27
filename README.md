@@ -1,5 +1,6 @@
 # What is this?
-**microbit-shell** is a shell that runs inside a micro:bit. It was made in the Makecode editor using Javascript.
+**microbit-shell** is a shell that runs inside a micro:bit. 
+It was made in the Makecode editor using Javascript.
 
 ## How to use this project
 **This project is _only tested on PuTTY_. Use of other serial clients may give different results, in the case of that make an "Issue"**.
