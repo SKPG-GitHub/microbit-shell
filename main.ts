@@ -5,7 +5,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             serial.writeString("" + "\r\nList of commands:" + 
             "\r\nhelp - shows a list of commands" + 
             "\r\ninfo - shows info about this device" + 
-            "\r\nabout - shows info about he flashed program on this device")
+            "\r\nabout - shows info about the flashed program on this device")
         } else if (command == "info") {
             serial.writeString("" + "\r\nInfo about this device:" + 
             "\r\nDevice Name: " + control.deviceName() + 
