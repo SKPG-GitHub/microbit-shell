@@ -34,7 +34,7 @@ To edit this repository in MakeCode.
    1. Using import from URL
       - open [https://makecode.microbit.org/](https://makecode.microbit.org/)
       - click on **Import** then click on **Import URL**
-      - paste **https://github.com/skpg-github/microbit-shell** and click import
+      - paste **https://github.com/skpg-tech/microbit-shell** and click import
    2. Using your GitHub account
       - fork this repository
       - open [https://makecode.microbit.org/](https://makecode.microbit.org/)
