@@ -11,9 +11,12 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\nDevice Serial Number: " + control.deviceSerialNumber() + 
             "\r\nTime Elapsed Since Boot: " + (control.millis() / 1000) + " s")
         } else if (command == "about") {
-            serial.writeString("This is a shell, made using the Makecode editor with Javascript and the thing is it runs on a micro:bit")
+            serial.writeString("\r\nThis is a shell, made using the Makecode editor with Javascript.\r\nAnd the thing is it runs on a micro:bit")
+        } else if (command == "reset") {
+            serial.writeString("\r\nTHE MICRO:BIT WILL RESET DON'T TOUCH ANYTHING\r\n")
+            control.reset()
         } else {
-            serial.writeString("" + serial.NEW_LINE + "Error: command '" + command + "' not found!")
+            serial.writeString("\r\nError: command '" + command + "' not found!")
         }
     command = ""
     new_command()
