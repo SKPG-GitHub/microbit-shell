@@ -1,6 +1,6 @@
 ![Build status badge](https://github.com/skpg-tech/microbit-shell/workflows/MakeCode/badge.svg)
 # What is this?
-**microbit-shell** is a shell that runs inside a micro:bit. 
+**microbit-shell** is a shell that runs on a micro:bit. 
 It was made in the Makecode editor using Javascript.
 
 ## How to use this project
