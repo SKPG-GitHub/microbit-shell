@@ -9,7 +9,8 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\ninfo - shows info about this device" + 
             "\r\nabout - shows info about the flashed program on this device" + 
             "\r\nreset - restarts the device" + 
-            "\r\npinread - [pinNumber] - shows the voltage the pin has on the device - ex: 'pinread 12;'")
+            "\r\npinread - [pinNumber] - shows the voltage the pin has on the device - ex: 'pinread 12;'" +
+            "\r\ngetgroups - checks which radio groups send data (currently)")
             break
          case "info":
             serial.writeString("" + 
@@ -17,7 +18,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\nDevice Name: " + control.deviceName() + 
             "\r\nDevice Serial Number: " + control.deviceSerialNumber() + 
             "\r\nTime Elapsed Since Boot: " + control.millis() / 1000 + " s" + 
-            "\r\nShell Version: v1.0.0-alpha.1" + 
+            "\r\nShell Version: v1.0.0-alpha.3" + 
             "\r\nDevice Temperature: " + input.temperature() + "C, " + (input.temperature() * 1.8 + 32) + "F")
             break
         case "about":
@@ -27,6 +28,36 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
         case "reset":
             serial.writeString("" + ("\r\nTHE MICRO:BIT WILL RESET DON'T TOUCH ANYTHING\r\n"))
             control.reset()
+            break
+        case "getgroups":
+            serial.writeLine("\r\nStarting radio group checking...")
+            pause(3000)
+            serial.writeString("This test will go through groups 0 - 255")
+            serial.writeLine("\r\nThis test will take 10-15 minutes (some types of data could be empty)")
+            pause(2000)
+            for (let i: number = 0; i <= 255; i++) {
+                radio.setGroup(i)
+                getdata = true
+                pause(3000)
+                if (gotdata) {
+                    getdata = false
+                    gotdata = false
+                    list.push(i)
+                    serial.writeLine("Got Data On Group: " + i + 
+                    " Data in packets: String=" + receivedString2 + 
+                    " Number=" + receivedNumber2 + " Variable.Name=" + name2 + " Variable.Value=" + value2)
+                } else {
+                    serial.writeLine("Tested Group: " + i + " No Data")
+                }
+                receivedString2 = ""
+                receivedNumber2 = 0
+                name2 = ""
+                value2 = 0
+            }
+            serial.writeString("All groups that sent data: ")
+            for (let i: number = 1; i < list.length + 1; i++) {
+                serial.writeString(list.get(i).toString() + ", ")
+            }
             break
         default:
             if (command.includes("pinread ")) {
@@ -116,7 +147,15 @@ function new_command () {
 }
 let letter = ""
 let num = false
+let list = [1]
 let command = ""
+let getdata = false
+let gotdata = false
+let receivedString2: string = ""
+let receivedNumber2: number = 0
+let name2: string = ""
+let value2: number = 0
+radio.setGroup(0)
 serial.redirectToUSB()
 serial.setBaudRate(BaudRate.BaudRate115200)
 new_command()
@@ -129,5 +168,30 @@ basic.forever(function () {
     } else {
         command = "" + command + letter
         letter = ""
+    }
+})
+radio.onReceivedString(function (receivedString: string) {
+    if (getdata) {
+        gotdata = true
+        receivedString2 = receivedString
+    } else {
+
+    }
+})
+radio.onReceivedValue(function (name: string, value: number) {
+    if (getdata) {
+        gotdata = true
+        name2 = name
+        value2 = value
+    } else {
+
+    }
+})
+radio.onReceivedNumber(function (receivedNumber: number) {
+    if (getdata) {
+        gotdata = true
+        receivedNumber2 = receivedNumber
+    } else {
+
     }
 })
