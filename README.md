@@ -4,7 +4,7 @@
 It was made in the Makecode editor using Javascript.
 
 ## How to use this project
-**This project is _only tested on PuTTY_. Use of other serial clients may give different results, in the case of that make an "Issue"**.
+**This project officially _only supports PuTTY_. Use of other serial clients may give different results, in the case of that make an "Issue"**.
   - Stuff you need
     - A BBC micro:bit
     - A USB cable
