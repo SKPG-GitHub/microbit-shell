@@ -7,29 +7,24 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\nList of commands:" + 
             "\r\nhelp - shows a list of commands" + 
             "\r\ninfo - shows info about this device" + 
-            "\r\nabout - shows info about the flashed program on this device" + 
             "\r\nreset - restarts the device" + 
-            "\r\npinread - [pinNumber] - shows the voltage the pin has on the device - ex: 'pinread 12;'" +
-            "\r\nscangroups - checks which radio groups send data (currently)")
+            "\r\npin-read - [pinNumber] - shows the Analog and Digital values the pin has on the device - ex: 'pin-read 12;'" +
+            "\r\nscan-groups - checks which radio groups send data (currently)")
             break
          case "info":
             serial.writeString("" + 
-            "\r\nInfo about this device:" + 
+            "\r\nShell Version: v1.0.0-alpha.4" + 
+            "\r\nRadio Group: " + radiogroup +
             "\r\nDevice Name: " + control.deviceName() + 
             "\r\nDevice Serial Number: " + control.deviceSerialNumber() + 
             "\r\nTime Elapsed Since Boot: " + control.millis() / 1000 + " s" + 
-            "\r\nShell Version: v1.0.0-alpha.3" + 
             "\r\nDevice Temperature: " + input.temperature() + "C, " + (input.temperature() * 1.8 + 32) + "F")
-            break
-        case "about":
-            serial.writeString("" + "\r\nThis is a shell, made using the Makecode editor with Javascript." + 
-            "\r\nAnd the thing is it runs on a micro:bit.")
             break
         case "reset":
             serial.writeString("" + ("\r\nTHE MICRO:BIT WILL RESET DON'T TOUCH ANYTHING\r\n"))
             control.reset()
             break
-        case "scangroups":
+        case "scan-groups":
             serial.writeLine("\r\nStarting radio group checking...")
             pause(3000)
             serial.writeString("This test will go through groups 0 - 255")
@@ -58,61 +53,62 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             for (let i: number = 1; i < list.length + 1; i++) {
                 serial.writeString(list.get(i).toString() + ", ")
             }
+            radiogroup = 0
             break
         default:
-            if (command.includes("pinread ")) {
-                let pin: string = command.replace("pinread ", "")
+            if (command.includes("pin-read ")) {
+                let pin: string = command.replace("pin-read ", "")
                 switch (pin) {
                     case "0":
-                        serial.writeString("\r\nVoltage on PIN0: " + pins.analogReadPin(AnalogPin.P0))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN0: " + pins.analogReadPin(AnalogPin.P0) + " / " + pins.digitalReadPin(DigitalPin.P0))
                         break
                     case "1":
-                        serial.writeString("\r\nVoltage on PIN1: " + pins.analogReadPin(AnalogPin.P1))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN1: " + pins.analogReadPin(AnalogPin.P1) + " / " + pins.digitalReadPin(DigitalPin.P1))
                         break
                     case "2":
-                        serial.writeString("\r\nVoltage on PIN2: " + pins.analogReadPin(AnalogPin.P2))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN2: " + pins.analogReadPin(AnalogPin.P2) + " / " + pins.digitalReadPin(DigitalPin.P2))
                         break
                     case "3":
-                        serial.writeString("\r\nVoltage on PIN3: " + pins.analogReadPin(AnalogPin.P3))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN3: " + pins.analogReadPin(AnalogPin.P3) + " / " + pins.digitalReadPin(DigitalPin.P3))
                         break
                     case "4":
-                        serial.writeString("\r\nVoltage on PIN4: " + pins.analogReadPin(AnalogPin.P4))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN4: " + pins.analogReadPin(AnalogPin.P4) + " / " + pins.digitalReadPin(DigitalPin.P4))
                         break
                     case "5":
-                        serial.writeString("\r\nVoltage on PIN5: " + pins.analogReadPin(AnalogPin.P5))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN5: " + pins.analogReadPin(AnalogPin.P5) + " / " + pins.digitalReadPin(DigitalPin.P5))
                         break
                     case "6":
-                        serial.writeString("\r\nVoltage on PIN6: " + pins.analogReadPin(AnalogPin.P6))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN6: " + pins.analogReadPin(AnalogPin.P6) + " / " + pins.digitalReadPin(DigitalPin.P6))
                         break
                     case "7":
-                        serial.writeString("\r\nVoltage on PIN7: " + pins.analogReadPin(AnalogPin.P7))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN7: " + pins.analogReadPin(AnalogPin.P7) + " / " + pins.digitalReadPin(DigitalPin.P7))
                         break
                     case "8":
-                        serial.writeString("\r\nVoltage on PIN8: " + pins.analogReadPin(AnalogPin.P8))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN8: " + pins.analogReadPin(AnalogPin.P8) + " / " + pins.digitalReadPin(DigitalPin.P8))
                         break
                     case "9":
-                        serial.writeString("\r\nVoltage on PIN9: " + pins.analogReadPin(AnalogPin.P9))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN9: " + pins.analogReadPin(AnalogPin.P9) + " / " + pins.digitalReadPin(DigitalPin.P9))
                         break
                     case "10":
-                        serial.writeString("\r\nVoltage on PIN10: " + pins.analogReadPin(AnalogPin.P10))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN10: " + pins.analogReadPin(AnalogPin.P10) + " / " + pins.digitalReadPin(DigitalPin.P10))
                         break
                     case "11":
-                        serial.writeString("\r\nVoltage on PIN11: " + pins.analogReadPin(AnalogPin.P11))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN11: " + pins.analogReadPin(AnalogPin.P11) + " / " + pins.digitalReadPin(DigitalPin.P11))
                         break
                     case "12":
-                        serial.writeString("\r\nVoltage on PIN12: " + pins.analogReadPin(AnalogPin.P12))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN12: " + pins.analogReadPin(AnalogPin.P12) + " / " + pins.digitalReadPin(DigitalPin.P12))
                         break
                     case "13":
-                        serial.writeString("\r\nVoltage on PIN13: " + pins.analogReadPin(AnalogPin.P13))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN13: " + pins.analogReadPin(AnalogPin.P13) + " / " + pins.digitalReadPin(DigitalPin.P13))
                         break
                     case "14":
-                        serial.writeString("\r\nVoltage on PIN14: " + pins.analogReadPin(AnalogPin.P14))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN14: " + pins.analogReadPin(AnalogPin.P14) + " / " + pins.digitalReadPin(DigitalPin.P14))
                         break
                     case "15":
-                        serial.writeString("\r\nVoltage on PIN15: " + pins.analogReadPin(AnalogPin.P15))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN15: " + pins.analogReadPin(AnalogPin.P15) + " / " + pins.digitalReadPin(DigitalPin.P15))
                         break
                     case "16":
-                        serial.writeString("\r\nVoltage on PIN16: " + pins.analogReadPin(AnalogPin.P16))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN16: " + pins.analogReadPin(AnalogPin.P16) + " / " + pins.digitalReadPin(DigitalPin.P16))
                         break
                     case "17":
                         serial.writeString("\r\nPIN17 is a 3V supply")
@@ -121,10 +117,10 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
                         serial.writeString("\r\nPIN18 is a 3V supply")
                         break
                     case "19":
-                        serial.writeString("\r\nVoltage on PIN19: " + pins.analogReadPin(AnalogPin.P19))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN19: " + pins.analogReadPin(AnalogPin.P19) + " / " + pins.digitalReadPin(DigitalPin.P19))
                         break
                     case "20":
-                        serial.writeString("\r\nVoltage on PIN20: " + pins.analogReadPin(AnalogPin.P20))
+                        serial.writeString("\r\nAnalog / Digital Value on PIN20: " + pins.analogReadPin(AnalogPin.P20) + " / " + pins.digitalReadPin(DigitalPin.P20))
                         break
                     default:
                         serial.writeString("\r\nError: wrong pin number/index!")
@@ -155,7 +151,8 @@ let receivedString2: string = ""
 let receivedNumber2: number = 0
 let name2: string = ""
 let value2: number = 0
-radio.setGroup(0)
+let radiogroup = 0
+radio.setGroup(radiogroup)
 serial.redirectToUSB()
 serial.setBaudRate(BaudRate.BaudRate115200)
 new_command()
