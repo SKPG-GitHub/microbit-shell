@@ -1,15 +1,74 @@
+let letter = ""
+let command = ""
+let receivedString2 = ""
+let name2 = ""
+let value2 = 0
+let radiogroup = 0
+let receivedNumber2 = 0
+let list = [1]
+let num = false
+let getdata = false
+let gotdata = false
+radio.setGroup(radiogroup)
+serial.redirectToUSB()
+serial.setBaudRate(BaudRate.BaudRate115200)
+new_command()
+basic.forever(function () {
+    letter = serial.readString()
+    serial.writeString(letter)
+    if (letter == ";") {
+        letter = ""
+    } else {
+        command = "" + command + letter
+        letter = ""
+    }
+})
+function new_command () {
+    if (num) {
+        serial.writeString("" + "\r\n" + control.deviceName() + " ~ % ")
+    } else {
+        serial.writeString("" + control.deviceName() + " ~ % ")
+    }
+}
+radio.onReceivedString(function (receivedString: string) {
+    if (getdata) {
+        gotdata = true
+        receivedString2 = receivedString
+    } else {
+
+    }
+})
+radio.onReceivedValue(function (name: string, value: number) {
+    if (getdata) {
+        gotdata = true
+        name2 = name
+        value2 = value
+    } else {
+
+    }
+})
+radio.onReceivedNumber(function (receivedNumber: number) {
+    if (getdata) {
+        gotdata = true
+        receivedNumber2 = receivedNumber
+    } else {
+
+    }
+})
 serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
     pause(100)
+    num = true
     command = command.toLowerCase()
     switch (command) {
         case "help":
             serial.writeString("" + 
-            "\r\nList of commands:" + 
+            "\r\nList of commands:\r\n\r\nBasic commands:\r\n" + 
             "\r\nhelp - shows a list of commands" + 
             "\r\ninfo - shows info about this device" + 
-            "\r\nreset - restarts the device" + 
-            "\r\npin-read - [pinNumber] - shows the Analog and Digital values the pin has on the device - ex: 'pin-read 12;'" +
-            "\r\nscan-groups - checks which radio groups send data (currently)")
+            "\r\nreset - restarts the device\r\n\r\nPin commands:\r\n" + 
+            "\r\npin-read - [pinNumber] - shows the Analog and Digital values the pin has on the device - ex: 'pin-read 12;'\r\n\r\nRadio commands:\r\n" +
+            "\r\nscan-groups - checks which radio groups send data (currently)" +
+            "\r\nset-group - [groupNumber] - sets the radio group number - ex: 'set-group 5;'")
             break
          case "info":
             serial.writeString("" + 
@@ -126,6 +185,11 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
                         serial.writeString("\r\nError: wrong pin number/index!")
                         break
                 }
+            } else if (command.includes("set-group ")) {
+                let gnumber: string = command.replace("set-group ", "")
+                radiogroup = gnumber.charAt(0).charCodeAt(0)
+                radio.setGroup(radiogroup)
+                serial.writeString("\r\nThe radio group number was set to " + gnumber)
             } else {
                 serial.writeString("" + "\r\nError: command '" + command + "' not found!")
             }
@@ -133,62 +197,4 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
     }
     command = ""
     new_command()
-})
-function new_command () {
-    if (num) {
-        serial.writeString("" + "\r\n" + control.deviceName() + " ~ % ")
-    } else {
-        serial.writeString("" + control.deviceName() + " ~ % ")
-    }
-}
-let letter = ""
-let num = false
-let list = [1]
-let command = ""
-let getdata = false
-let gotdata = false
-let receivedString2: string = ""
-let receivedNumber2: number = 0
-let name2: string = ""
-let value2: number = 0
-let radiogroup = 0
-radio.setGroup(radiogroup)
-serial.redirectToUSB()
-serial.setBaudRate(BaudRate.BaudRate115200)
-new_command()
-num = true
-basic.forever(function () {
-    letter = serial.readString()
-    serial.writeString(letter)
-    if (letter == ";") {
-        letter = ""
-    } else {
-        command = "" + command + letter
-        letter = ""
-    }
-})
-radio.onReceivedString(function (receivedString: string) {
-    if (getdata) {
-        gotdata = true
-        receivedString2 = receivedString
-    } else {
-
-    }
-})
-radio.onReceivedValue(function (name: string, value: number) {
-    if (getdata) {
-        gotdata = true
-        name2 = name
-        value2 = value
-    } else {
-
-    }
-})
-radio.onReceivedNumber(function (receivedNumber: number) {
-    if (getdata) {
-        gotdata = true
-        receivedNumber2 = receivedNumber
-    } else {
-
-    }
 })
