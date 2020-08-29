@@ -10,7 +10,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             "\r\nabout - shows info about the flashed program on this device" + 
             "\r\nreset - restarts the device" + 
             "\r\npinread - [pinNumber] - shows the voltage the pin has on the device - ex: 'pinread 12;'" +
-            "\r\ngetgroups - checks which radio groups send data (currently)")
+            "\r\nscangroups - checks which radio groups send data (currently)")
             break
          case "info":
             serial.writeString("" + 
@@ -29,7 +29,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             serial.writeString("" + ("\r\nTHE MICRO:BIT WILL RESET DON'T TOUCH ANYTHING\r\n"))
             control.reset()
             break
-        case "getgroups":
+        case "scangroups":
             serial.writeLine("\r\nStarting radio group checking...")
             pause(3000)
             serial.writeString("This test will go through groups 0 - 255")
