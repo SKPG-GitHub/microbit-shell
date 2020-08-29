@@ -2,6 +2,7 @@ let letter = ""
 let command = ""
 let receivedString2 = ""
 let name2 = ""
+let env = "home"
 let value2 = 0
 let radiogroup = 0
 let receivedNumber2 = 0
@@ -9,30 +10,55 @@ let list = [1]
 let num = false
 let getdata = false
 let gotdata = false
-let env = "home"
+let wasoverheat = false
 radio.setGroup(radiogroup)
 serial.redirectToUSB()
 serial.setBaudRate(BaudRate.BaudRate115200)
 new_command()
 basic.forever(function () {
-    letter = serial.readString()
-    serial.writeString(letter)
-    if (letter == ";") {
-        letter = ""
+    if(input.temperature() >= 40) {
+        wasoverheat = true
+        num = true
+        serial.writeString("\r\n\r\nThe micro:bit is a bit warn. Let it cool down.")
+        pause(20000)
     } else {
-        command = "" + command + letter
-        letter = ""
+        if (wasoverheat) {
+            new_command()
+            wasoverheat = false
+        } else {
+            letter = serial.readString()
+            serial.writeString(letter)
+            if (letter == ";") {
+                letter = ""
+            } else {
+                command = "" + command + letter
+                letter = ""
+            }
+        }
     }
 })
 function new_command () {
-    if (num) {
-        serial.writeString("" + "\r\n\r\n" + control.deviceName() + " ~ % ")
-    } else {
-        serial.writeString("" + control.deviceName() + " ~ % ")
+    switch (env) {
+        case "home":
+            if (num) {
+                serial.writeString("" + "\r\n\r\n[" + control.deviceName() + "/home] -> ")
+            } else {
+                serial.writeString("[" + control.deviceName() + "/home] -> ")
+            }
+            break
+        case "radio":
+            serial.writeString("" + "\r\n\r\n[" + control.deviceName() + "/radio] -> ")
+            break
+        case "pins":
+            serial.writeString("" + "\r\n\r\n[" + control.deviceName() + "/pins] -> ")
+            break
+        case "leds":
+            serial.writeString("" + "\r\n\r\n[" + control.deviceName() + "/leds] -> ")
+            break
+        case "sound":
+            serial.writeString("" + "\r\n\r\n[" + control.deviceName() + "/sound] -> ")
+            break
     }
-}
-function new_radio_command () {
-    serial.writeString("" + "\r\n\r\n" + control.deviceName() + "/radio >> ")
 }
 radio.onReceivedString(function (receivedString: string) {
     if (getdata) {
@@ -61,10 +87,11 @@ radio.onReceivedNumber(function (receivedNumber: number) {
 })
 serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
     pause(100)
+    num = true
+    let nocase = command
+    command = command.toLowerCase()
     switch (env) {
         case "home":
-            num = true
-            command = command.toLowerCase()
             switch (command) {
                 case "help":
                     serial.writeString("\r\n" + 
@@ -73,7 +100,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
                     "\r\ninfo - shows info about this device" + 
                     "\r\nreset - restarts the device" + 
                     "\r\necho - [message] - repeats your message - ex: 'echo Hello World!;'" + 
-                    "\r\npin-read - [pinNumber] - shows the Analog and Digital values the pin has on the device - ex: 'pin-read 12;'" +
+                    "\r\npins - goes to the pin program, where you can read and write analog and digital values to the pins" +
                     "\r\nradio - goes to the radio program, where you can use the radio functions")
                     break
                 case "info":
@@ -90,8 +117,12 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
                     control.reset()
                     break
                 case "radio":
+                    env = "radio"
                     break
-                 default:
+                case "pins":
+                    env = "pins"
+                    break
+                default:
                     if (command.includes("pin-read ")) {
                         let pin: string = command.replace("pin-read ", "")
                         serial.writeString("\r\n")
@@ -164,17 +195,72 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
                                 break
                         }
                     } else if (command.includes("echo ")) {
-                        let message = command.replace("echo ", "")
+                        let message = nocase.slice(5)
                         serial.writeString("\r\n\r\n" + message)
                     } else {
                         serial.writeString("" + "\r\n\r\nError: command '" + command + "' not found!")
                     }
                     break
             }
-            command = ""
-            new_command()
             break
         case "radio":
+            switch (command) {
+                case "help":
+                    serial.writeString("\r\n" + 
+                    "\r\nList of commands:" + 
+                    "\r\nhelp - shows a list of radio commands" + 
+                    "\r\nexit - go back the the home shell program" +
+                    "\r\nscan - checks which radio groups send data (currently)" + 
+                    "\r\nset-group - [groupNumber] - sets the radio group number - ex: 'set-group 5;'" +
+                    "\r\n")
+                    break
+                case "exit":
+                    env = "home"
+                    break
+                case "scan":
+                    serial.writeLine("\r\nStarting radio group checking...")
+                    pause(3000)
+                    serial.writeString("This test will go through groups 0 - 255")
+                    serial.writeLine("\r\nThis test will take 10-15 minutes (some types of data could be empty)")
+                    pause(2000)
+                    for (let i: number = 0; i <= 255; i++) {
+                        radio.setGroup(i)
+                        getdata = true
+                        pause(3000)
+                        if (gotdata) {
+                            getdata = false
+                            gotdata = false
+                            list.push(i)
+                            serial.writeLine("Got Data On Group: " + i + 
+                            " Data in packets: String=" + receivedString2 + 
+                            " Number=" + receivedNumber2 + " Variable.Name=" + name2 + " Variable.Value=" + value2)
+                        } else {
+                            serial.writeLine("Tested Group: " + i + " No Data")
+                        }
+                        receivedString2 = ""
+                        receivedNumber2 = 0
+                        name2 = ""
+                        value2 = 0
+                    }
+                    serial.writeString("All groups that sent data: ")
+                    for (let i: number = 1; i < list.length + 1; i++) {
+                        serial.writeString(list.get(i).toString() + ", ")
+                    }
+                    break
+                default:
+                    if (command.includes("set-group ")) {
+                        let gnumber: string = command.replace("set-group ", "")
+                        let gstring: string = ""
+                        for (let i: number = 0; i < gnumber.length; i++) {
+                            gstring += (gnumber.charAt(i).charCodeAt(i) - 48).toString()
+                        }
+                        radio.setGroup(radiogroup)
+                        serial.writeString("\r\n\nThe radio group number was set to ")
+                    } else {
+                        serial.writeString("\r\n\r\nError: command '" + command + "' not found!")
+                    }
+                    break
+            }
             break
         case "pins":
             break
@@ -182,7 +268,7 @@ serial.onDataReceived(serial.delimiters(Delimiters.SemiColon), function () {
             break
         case "sound":
             break
-        case "overheat":
-            break
     }
+    command = ""
+    new_command()
 })
